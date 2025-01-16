@@ -80,7 +80,7 @@ public:
     return temp_data;
   }
 
-  void HasDuplicates(T E) {
+  void inputAllList(T E) {
     Node<T> *temp = head;
     int count = 0;
     int ind = -1;
@@ -93,28 +93,21 @@ public:
       }
       count++;
       temp = temp->next;
-      std::cout<<"ABOBA"<<ind<<'\n';
     }
     
     if (!flag){
         
         T *arr = new T[++count];
-        //std::cout<<"COUNT  "<<count<<"\n";
         temp = head;
         count = 0; 
         while (temp->next != nullptr){
             arr[count] = temp->data;
-            std::cout<<"TEMP PLAYER   "<<temp->data<<"\n";
             count++;
             temp = temp->next;
         }
         arr[count] = temp->data;
-        std::cout<<"TEMP PLAYER   "<<temp->data<<"\n";
-        //std::cout<<"COUNTT   "<<count<<"\n";
         for (int i = 0; i <= count; i++){
-            //std::cout<<"BEBEBE\n";
             AppendMiddle(arr[i], ind);
-            std::cout<<"PIZDEZ  "<<arr[i]<<"   "<< i <<"\n";
             ind++;
             }
         }
@@ -132,16 +125,6 @@ public:
   }
 };
 
-/*
-template <class T>
-class Node {
-public:
-    T data;
-    Node* prev;
-    Node* next;
-    Node(const T& data) : data(data), prev(nullptr), next(nullptr) {}
-};
-*/
 template <class T> class DoublyLinkedList {
 private:
   Node<T> *head;
@@ -240,8 +223,6 @@ public:
   }
   
 };
-
-#include <iostream>
 
 template <class T> class UniqueCollection {
 private:
@@ -361,28 +342,32 @@ int main() {
   intList.AppendTop(2);
   intList.AppendTop(3);
   
-  /*int E = 761; 
+  int E = 1; 
   std::cout << "Список целых чисел: ";
   intList.PrintList();
-  intList.HasDuplicates(E);
+  intList.inputAllList(E);
+  std::cout << "Список после вставки всего массива после первого вхождения элемента E: " << std::endl;
   intList.PrintList();
-  std::cout << "Есть ли дубликаты? " << std::endl;*/
   
-  std::string E = "world";
+  
+  std::string G = "написан";
   SinglyLinkedList<std::string> stringList;
-  stringList.AppendTop("hello");
-  stringList.AppendTop("world");
-  stringList.AppendTop("hello");
+  stringList.AppendTop("текст");
+  stringList.AppendTop("осознанный");
+  stringList.AppendTop("написан");
+  stringList.AppendTop("написан");
+  stringList.AppendTop("здесь");
 
   std::cout << "\nСписок строк: ";
   stringList.PrintList();
-  stringList.HasDuplicates(E);
+  stringList.inputAllList(G);
+  std::cout << "Список после вставки всего массива после первого вхождения элемента E: " << std::endl;
   stringList.PrintList();
 
 
   // второе задание
 
-  DoublyLinkedList<int> list;
+  DoublyLinkedList<int> list;//  здесь создаем лист с циферками
   list.append(1);
   list.append(2);
   list.append(3);
@@ -392,101 +377,126 @@ int main() {
   std::cout << "Список: ";
   list.printList();
 
-  list.insert(2); // Удаляет первое вхождение 2
+  list.insert(2); // вызов метода вставляющего(хз, я б конечно просто две комманды втемняшил, но мб так веселее) 2 вперед и назад листа
 
-  std::cout << "Список после удаления первого 2: ";
+  std::cout << "Список после вставки значений E: ";
   list.printList();
 
-  DoublyLinkedList<std::string> StringList;
-  StringList.append("hello");
-  StringList.append("hello");
-  StringList.append("chipi");
-  StringList.append("chipi");
-  StringList.append("chapa");
-  StringList.append("chapa");
+  DoublyLinkedList<std::string> StringList;// а здесь с буковами
+  StringList.append("шнип");
+  StringList.append("шнап");
+  StringList.append("шнапи");
+  StringList.append("шнапи");
+  StringList.append("шнапи");
+  StringList.append("шнуп");
   std::cout << "Список: ";
   StringList.printList();
-  StringList.insert("why are you gay? ");
-  std::cout << "Список после удаления первого hello: ";
-  StringList.printList();
-  StringList.swapNodes("hello", "chipi");
-  std::cout << "Список после перестановки hello and chipi: ";
+  StringList.insert("И еще раз)"); // а здесь опять вместо двух команд используем одну, зато какую)))
+  std::cout << "Список после вставки значений E: ";
   StringList.printList();
 
-  //
   // третье задание
 
-  UniqueCollection<std::string> compositions;
-  compositions.add("Voina i pizdilka");
-  compositions.add("Ya eby sobak");
-  compositions.add("Vyzhivanie na sotky");
-  compositions.add("Dozhyt do stypuhi");
-  compositions.add("Na sotky menshe chem vchera");
+  UniqueCollection<std::string> books;// здесь даем названия книгам, создавая коллекцию
+  books.add("Voina i pizdilka");
+  books.add("Ya eby sobak");
+  books.add("Vyzhivanie na sotky");
+  books.add("Dozhyt do stypuhi");
+  books.add("Na sotky menshe chem vchera");// да, я человек тонкой душевной организации
 
-  UniqueCollection<std::string> melomans[3];
-  melomans[0].add("Voina i pizdilka");
-  melomans[0].add("Vyzhivanie na sotky");
-  melomans[0].add("Na sotky menshe chem vchera");
-  melomans[0].add("Dozhyt do stypuhi");
+  UniqueCollection<std::string> readers[3];// а здесь книгочеи получают книги, которые они читают
+  readers[0].add("Voina i pizdilka");
+  readers[0].add("Vyzhivanie na sotky");
+  readers[0].add("Na sotky menshe chem vchera");
+  readers[0].add("Dozhyt do stypuhi");
 
-  melomans[1].add("Voina i pizdilka");
-  melomans[1].add("Ya eby sobak");
-  melomans[1].add("Na sotky menshe chem vchera");
+  readers[1].add("Voina i pizdilka");
+  readers[1].add("Ya eby sobak");
+  readers[1].add("Na sotky menshe chem vchera");
 
-  melomans[2].add("Classica");
-  melomans[2].add("Ya eby sobak");
-  melomans[2].add("Vyzhivanie na sotkya");
+  readers[2].add("Classica");
+  readers[2].add("Ya eby sobak");
+  readers[2].add("Vyzhivanie na sotkya");
 
-  std::cout << "COLICHESTVO KNIGGEROV: " << compositions.GetSize() << '\n';
-  int *count_compositions = new int[compositions.GetSize()];
-  for (int i = 0; i < compositions.GetSize(); i++)
-    count_compositions[i] = 0;
+  std::cout << "Количество книг: " << books.GetSize() << '\n';
+  int *count_books = new int[books.GetSize()];
+  for (int i = 0; i < books.GetSize(); i++)
+    count_books[i] = 0;
 
   for (int i = 0; i < 3; i++) {
-    for (int j = 0; j < melomans[i].GetSize(); j++) {
-      for (int l = 0; l < compositions.GetSize(); l++) {
-        if (compositions.GetElement(l) == melomans[i].GetElement(j)) {
-          count_compositions[l]++;
+    for (int j = 0; j < readers[i].GetSize(); j++) {
+      for (int l = 0; l < books.GetSize(); l++) {
+        if (books.GetElement(l) == readers[i].GetElement(j)) {
+          count_books[l]++;//здеся подсчитываем количство книг
           break;
         }
       }
     }
   }
 
-  for (int i = 0; i < compositions.GetSize(); i++) {
-    std::cout << "KNIGGA NUMBER " << i+1 << "  " << count_compositions[i]
+  for (int i = 0; i < books.GetSize(); i++) {
+    std::cout << "номер книги и количество читателей: " << i+1 << "  " << count_books[i]// а здеся выводим этих самых книгов по номерам и количеству их прочитавших 
               << '\n';
   }
-  // четвёртое задание
-  //                 0123456789
-  std::string rus = "ауоиэыяюеё";
-  std::string big_rus = "АУОИЭЫЯЮЕЁ";
+  std::string rus = "абвгддеёжзийклмнопрстуфхцчшщъыьэюя";
+  std::string big_rus = "АБВГДЕЁЖЗИЁКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ";
 
-  UniqueCollection<std::string> letters[10];
+  UniqueCollection<std::string> letters[33];
 
   std::ifstream input("rus_text.txt");
+  if (!input.is_open()) {
+    std::cerr << "Error opening file" << std::endl;
+    return 1;
+  }
   std::string line;
+  std::string first_word;
+  if (std::getline(input, line)) {
+    std::string first_word;
+    std::stringstream first_word_stream(line);
+    first_word_stream >> first_word;
+    for (int i = 0; i < first_word.size(); i++) {
+      for (int j = 0; j < 10; j++) {
+        if (first_word[i] == rus[j] || first_word[i] == big_rus[j]) {
+          letters[j].add(first_word);
+        }
+      }
+    }
+  }
+
   while (std::getline(input, line)) {
     std::string temp;
     std::stringstream str_stream(line);
     while (str_stream >> temp) {
-      std::cout << temp << '\n';
-      for (int i = 0; i < temp.size() / 2; i++) {
-        for (int j = 0; j < 10; j++) {
-          if (int(temp[i]) == int(rus[j]) || int(temp[i]) == int(big_rus[j])) {
-            letters[j].add(temp);
-            std::cout << "Буквы " << int(temp[i]) << " " << int(rus[j]) << "  "
-                      << int(big_rus[j]) << '\n';
+      for (int i = 0; i < temp.size(); i++) {
+        bool skip = false;
+        for (int j = 0; j < first_word.size(); j++) {
+          if (temp[i] == first_word[j]) {
+            skip = true;
+            break;
+          }
+        }
+        if (!skip) {
+          bool all_present = true;
+          for (int j = 0; j < 10; j++) {
+            if (temp.find(rus[j]) == std::string::npos && temp.find(big_rus[j]) == std::string::npos) {
+              all_present = false;
+              break;
+            }
+          }
+          if (all_present) {
+            for (int j = 0; j < 5; j++) {
+              letters[j].add(temp);
+            }
           }
         }
       }
     }
   }
+
   input.close();
 
-  for (int i = 0; i < 10; i++) {
+  for (int i = 0; i < 5; i++) {
     letters[i].print();
   }
-
   return 0;
 }
