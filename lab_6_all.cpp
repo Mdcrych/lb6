@@ -398,25 +398,25 @@ int main() {
   // третье задание
 
   UniqueCollection<std::string> books;// здесь даем названия книгам, создавая коллекцию
-  books.add("Voina i pizdilka");
-  books.add("Ya eby sobak");
-  books.add("Vyzhivanie na sotky");
-  books.add("Dozhyt do stypuhi");
-  books.add("Na sotky menshe chem vchera");// да, я человек тонкой душевной организации
+  books.add("Черный обелиск");
+  books.add("Собачье сердце");
+  books.add("Заводной апельсин");
+  books.add("Декамерон");
+  books.add("Ночь в Лиссабоне");// да, я человек тонкой душевной организации
 
   UniqueCollection<std::string> readers[3];// а здесь книгочеи получают книги, которые они читают
-  readers[0].add("Voina i pizdilka");
-  readers[0].add("Vyzhivanie na sotky");
-  readers[0].add("Na sotky menshe chem vchera");
-  readers[0].add("Dozhyt do stypuhi");
+  readers[0].add("Черный обелиск");
+  readers[0].add("Заводной апельсин");
+  readers[0].add("Декамерон");
+  readers[0].add("Ночь в Лиссабоне");
 
-  readers[1].add("Voina i pizdilka");
-  readers[1].add("Ya eby sobak");
-  readers[1].add("Na sotky menshe chem vchera");
+  readers[1].add("Черный обелиск");
+  readers[1].add("Собачье сердце");
+  readers[1].add("Заводной апельсин");
 
-  readers[2].add("Classica");
-  readers[2].add("Ya eby sobak");
-  readers[2].add("Vyzhivanie na sotkya");
+  readers[2].add("Черный обелиск");
+  readers[2].add("Собачье сердце");
+  readers[2].add("Заводной апельсин");
 
   std::cout << "Количество книг: " << books.GetSize() << '\n';
   int *count_books = new int[books.GetSize()];
@@ -427,7 +427,7 @@ int main() {
     for (int j = 0; j < readers[i].GetSize(); j++) {
       for (int l = 0; l < books.GetSize(); l++) {
         if (books.GetElement(l) == readers[i].GetElement(j)) {
-          count_books[l]++;//здеся подсчитываем количство книг
+          count_books[l]++;//здеся подсчитываем количество книг
           break;
         }
       }
@@ -435,7 +435,7 @@ int main() {
   }
 
   for (int i = 0; i < books.GetSize(); i++) {
-    std::cout << "номер книги и количество читателей: " << i+1 << "  " << count_books[i]// а здеся выводим этих самых книгов по номерам и количеству их прочитавших 
+    std::cout << "Название книги и количество читателей: " << books.GetElement(i) << ": " << count_books[i]// а здеся выводим этих самых книгов по номерам и количеству их прочитавших 
               << '\n';
   }
   std::string rus = "абвгддеёжзийклмнопрстуфхцчшщъыьэюя";
