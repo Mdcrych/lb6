@@ -495,7 +495,7 @@ int main() {
 
   input.close();
 
-  for (int i = 0; i < 5; i++) {
+  for (int i = 0; i < 33; i++) {
     letters[i].print();
   }
   return 0;
