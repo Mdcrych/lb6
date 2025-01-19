@@ -357,8 +357,7 @@ int main() {
   stringList.AppendTop("написан");
   stringList.AppendTop("написан");
   stringList.AppendTop("здесь");
-
-  std::cout << "\nСписок строк: ";
+  std::cout << "Список строк: ";
   stringList.PrintList();
   stringList.inputAllList(G);
   std::cout << "Список после вставки всего массива после первого вхождения элемента E: " << std::endl;
@@ -373,7 +372,6 @@ int main() {
   list.append(3);
   list.append(2);
   list.append(4);
-
   std::cout << "Список: ";
   list.printList();
 
@@ -399,10 +397,10 @@ int main() {
 
   UniqueCollection<std::string> books;// здесь даем названия книгам, создавая коллекцию
   books.add("Черный обелиск");
-  books.add("Собачье сердце");
-  books.add("Заводной апельсин");
-  books.add("Декамерон");
-  books.add("Ночь в Лиссабоне");// да, я человек тонкой душевной организации
+  books.add("Три товарища");
+  books.add("Тени в раю");
+  books.add("Триумфальная арка");
+  books.add("Ночь в Лиссабоне");// да, я большой фанат туберкулезных дев и посттравматических алкоголиков разных профессий, одним словом Ремарка
 
   UniqueCollection<std::string> readers[3];// а здесь книгочеи получают книги, которые они читают
   readers[0].add("Черный обелиск");
@@ -438,65 +436,50 @@ int main() {
     std::cout << "Название книги и количество читателей: " << books.GetElement(i) << ": " << count_books[i]// а здеся выводим этих самых книгов по номерам и количеству их прочитавших 
               << '\n';
   }
-  std::string rus = "абвгддеёжзийклмнопрстуфхцчшщъыьэюя";
-  std::string big_rus = "АБВГДЕЁЖЗИЁКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ";
+ std::string rus = "абвгддежзийклмнопрстуфхцчшщъыьэюя";
+    std::string big_rus = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ";
 
-  UniqueCollection<std::string> letters[33];
+    UniqueCollection<char> first_word_letters;
+    UniqueCollection<char> common_letters;
 
-  std::ifstream input("rus_text.txt");
-  if (!input.is_open()) {
-    std::cerr << "Error opening file" << std::endl;
-    return 1;
-  }
-  std::string line;
-  std::string first_word;
-  if (std::getline(input, line)) {
+    std::ifstream input("rus_text.txt");
+    if (!input.is_open()) {
+        std::cerr << "Ошибка открытия файла" << std::endl;
+        return 1;
+    }
+
+    std::string line;
     std::string first_word;
-    std::stringstream first_word_stream(line);
-    first_word_stream >> first_word;
-    for (int i = 0; i < first_word.size(); i++) {
-      for (int j = 0; j < 10; j++) {
-        if (first_word[i] == rus[j] || first_word[i] == big_rus[j]) {
-          letters[j].add(first_word);
+    if (std::getline(input, line)) {
+        std::stringstream first_word_stream(line);
+        first_word_stream >> first_word;
+
+        // Собираем буквы первого слова
+        for (char c : first_word) {
+            first_word_letters.add(c);
         }
-      }
     }
-  }
 
-  while (std::getline(input, line)) {
-    std::string temp;
-    std::stringstream str_stream(line);
-    while (str_stream >> temp) {
-      for (int i = 0; i < temp.size(); i++) {
-        bool skip = false;
-        for (int j = 0; j < first_word.size(); j++) {
-          if (temp[i] == first_word[j]) {
-            skip = true;
-            break;
-          }
+    // Инициализируем общие буквы с буквами второго слова, если есть
+    while (std::getline(input, line)) {
+        UniqueCollection<char> temp_letters;
+        for (char c : line) {
+            temp_letters.add(c); // Собираем буквы текущей строки
         }
-        if (!skip) {
-          bool all_present = true;
-          for (int j = 0; j < 10; j++) {
-            if (temp.find(rus[j]) == std::string::npos && temp.find(big_rus[j]) == std::string::npos) {
-              all_present = false;
-              break;
-            }
-          }
-          if (all_present) {
-            for (int j = 0; j < 5; j++) {
-              letters[j].add(temp);
-            }
-          }
+        
+        if (common_letters.GetSize() == 0) {
+            common_letters = temp_letters; // инициализируем с первой обработанной строкой
+        } else {
+            common_letters = common_letters.intersect(temp_letters);
         }
-      }
     }
-  }
 
-  input.close();
+    // Убираем буквы первого слова из общих букв
+    UniqueCollection<char> result = common_letters.except(first_word_letters);
 
-  for (int i = 0; i < 33; i++) {
-    letters[i].print();
-  }
-  return 0;
+    // Выводим результат
+    result.print();
+
+    input.close();
+    return 0;
 }
